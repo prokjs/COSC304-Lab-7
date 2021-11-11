@@ -41,7 +41,7 @@ try ( Connection con = DriverManager.getConnection(url, uid, pw);
 	ResultSet rst = stmt.executeQuery("SELECT orderId, orderDate, customer.customerId, CONCAT(firstName,SPACE(1),lastName) AS customerName, totalAmount FROM customer JOIN orderSummary ON orderSummary.customerId = customer.customerId");		
 	out.println("<table><tr><th>Order Id</th><th>Order Date</th><th>Customer Id</th><th>Customer Name</th><th>Total Amount</th></tr>");
 	while (rst.next())
-	{	out.println("<tr><td>"+rst.getString(1)+"</td>"+"<td>"+rst.getDate(2)+"</td>"+"<td>"+rst.getString(3)+"</td>"+"<td>"+rst.getString(4)+"</td>"+"<td>"+"$"+rst.getString(5)+"</td></tr>");
+	{	out.println("<tr><td>"+rst.getString(1)+"</td>"+"<td>"+rst.getDate(2)+" "+rst.getTime(2)+"</td>"+"<td>"+rst.getString(3)+"</td>"+"<td>"+rst.getString(4)+"</td>"+"<td>"+"$"+rst.getString(5)+"</td></tr>");
 	}
 	out.println("</table>");
 }
