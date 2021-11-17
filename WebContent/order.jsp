@@ -22,6 +22,14 @@ HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Obje
 // Determine if there are products in the shopping cart
 // If either are not true, display an error message
 
+
+if(custId.length() == 1 && productList.length() != 0) {
+	
+}
+else {
+
+}
+
 // Make connection
 
 // Save order information to database
