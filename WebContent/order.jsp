@@ -23,30 +23,66 @@ HashMap<String, ArrayList<Object>> productList = (HashMap<String, ArrayList<Obje
 // If either are not true, display an error message
 
 
-if(custId.length() == 1 && productList.length() != 0) {
-	
-}
-else {
+boolean custIdIsInt = true;
 
+try{
+	Integer.parseInt(custId); 
+}catch(Exception e) {
+	custIdIsInt = false;
+	out.println("Invalid customer ID. Go back");
+}
+
+boolean isCartEmpty = true;
+int x = productList.size();
+
+try{
+	double y = 1/x; //Divide by 0 if empty
+}catch(Exception e){
+	isCartEmpty = false;
+	out.println("Your cart is empty");
 }
 
 // Make connection
+String url = "jdbc:sqlserver://db:1433;DatabaseName=tempdb;";
+String uid = "SA";
+String pw = "YourStrong@Passw0rd";
 
+String prodId = request.getParameter("productId");
+String quantity = request.getParameter("quantity");
+String price = request.getParameter("price");
+
+try(Connection con = DriverManager.getConnection(url, uid, pw);)
+{
 // Save order information to database
+	
+	String sql = "Select productId, quantity, price FROM Product";
 
-
-	/*
 	// Use retrieval of auto-generated keys.
 	PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);			
 	ResultSet keys = pstmt.getGeneratedKeys();
 	keys.next();
 	int orderId = keys.getInt(1);
-	*/
+	
+
 
 // Insert each item into OrderProduct table using OrderId from previous INSERT
+	String sql2 = "INSERT INTO OrderProduct VALUES (?, ?, ?, ?)";
 
+	PreparedStatement pstmt2 = null;
+	ResultSet rst2 = null;
+
+	pstmt2 = con.prepareStatement(sql2);
+	rst2 = pstmt2.executeQuery();
+	pstmt2.setString(1, String.valueOf(orderId));
+	pstmt2.setString(2, prodId);
+	pstmt2.setString(3, quantity);
+	pstmt2.setString(4, price);
+
+	
 // Update total amount for order record
-
+}catch (SQLException ex) {
+	out.println(ex);
+} 
 // Here is the code to traverse through a HashMap
 // Each entry in the HashMap is an ArrayList with item 0-id, 1-name, 2-quantity, 3-price
 
