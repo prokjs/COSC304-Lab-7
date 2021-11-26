@@ -64,10 +64,11 @@ try(Connection con = DriverManager.getConnection(url, uid, pw);)
 			Double price = rst.getDouble(4);
 			String pnameEncoded = java.net.URLEncoder.encode(pname,"UTF-8").replace("+","%20");
 			String cartLink = "addcart.jsp?id="+pid+"&name="+pnameEncoded+"&price="+price;
+			String productLink = "product.jsp?id="+pid+"&name="+pnameEncoded+"&price="+price;
 			
 			out.print("<tr>"+
 				"<td><a href="+cartLink+">Add to Cart</a></td>"+
-				"<td>"+pname+"</td>"+
+				"<td><a href="+productLink+">"+pname+"</a></td>"+
 				"<td>"+pdesc+"</td>"+
 				"<td>"+currFormat.format(price)+"</td>"+
 			  "</tr>");
